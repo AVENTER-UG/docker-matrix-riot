@@ -1,7 +1,11 @@
-FROM alpine:3.17.1
+FROM alpine:3.19
 
 # Maintainer
-MAINTAINER Andreas Peters <support@aventer.biz>
+LABEL maintainer="Andreas Peters <support@aventer.biz>"
+LABEL org.opencontainers.image.title="docker-matrix-riot" 
+LABEL org.opencontainers.image.description="Element Web Client for Matrix Chat"
+LABEL org.opencontainers.image.vendor="AVENTER UG (haftungsbeschränkt)"
+LABEL org.opencontainers.image.source="https://github.com/AVENTER-UG/"
 
 # install homeserver template
 COPY adds/start.sh /start.sh
@@ -10,9 +14,9 @@ COPY adds/start.sh /start.sh
 ENTRYPOINT ["/start.sh"]
 
 # Git branch to download
-ARG BV_VEC=v1.11.57
+ARG BV_VEC=v1.11.66
 ENV BV_VEC=${BV_VEC:-master}
-ENV VERSION=1.11.57
+ENV VERSION=1.11.66
 
 # To rebuild the image, add `--build-arg REBUILD=$(date)` to your docker build
 # command.
