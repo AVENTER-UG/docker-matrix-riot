@@ -18,15 +18,12 @@ ifeq (${BRANCH}, master)
         BRANCHSHORT=latest
 endif
 
-
-
 build:
 	@echo ">>>> Build docker image: " ${BRANCH} 
 	docker build --build-arg BV_VEC=v${VERSION} --build-arg VERSION=${VERSION} -t ${IMAGEFULLNAME}:${BRANCH} .
 
 push:
-	@echo ">>>> Publish docker image: " ${IMAGEFULLNAME} ${IMAGEFULLNAME2} ${BRANCH} ${BRANCHSHORT}
-	@docker buildx create --use --name buildkit
+	@echo ">>>> Publish docker image: " ${BRANCH} ${BRANCHSHORT}
 	@docker buildx build --sbom=true --provenance=true --platform linux/amd64 --build-arg BV_VEC=v${VERSION} --build-arg VERSION=${VERSION} --push -t ${IMAGEFULLNAME}:${BRANCH} .
 	@docker buildx build --sbom=true --provenance=true --platform linux/amd64 --build-arg BV_VEC=v${VERSION} --build-arg VERSION=${VERSION} --push -t ${IMAGEFULLNAME}:${BRANCHSHORT} .
 	@docker buildx build --sbom=true --provenance=true --platform linux/amd64 --build-arg BV_VEC=v${VERSION} --build-arg VERSION=${VERSION} --push -t ${IMAGEFULLNAME}:latest .
@@ -34,7 +31,6 @@ push:
 	@docker buildx build --sbom=true --provenance=true --platform linux/amd64 --build-arg BV_VEC=v${VERSION} --build-arg VERSION=${VERSION} --push -t ${IMAGEFULLNAME2}:${BRANCHSHORT} .
 	@docker buildx build --sbom=true --provenance=true --platform linux/amd64 --build-arg BV_VEC=v${VERSION} --build-arg VERSION=${VERSION} --push -t ${IMAGEFULLNAME2}:latest .
 	@docker buildx rm buildkit
-
 
 imagecheck:
 	trivy image ${IMAGEFULLNAME}:${BRANCH}
