@@ -9,7 +9,7 @@ BUILDDATE=$(shell date -u +%Y%m%d)
 BRANCH=$(shell git symbolic-ref --short HEAD | xargs basename)
 BRANCHSHORT=$(shell echo ${BRANCH} | awk -F. '{ print $$1"."$$2 }')
 LASTCOMMIT=$(shell git log -1 --pretty=short | tail -n 1 | tr -d " " | tr -d "UPDATE:")
-VERSION=1.11.69
+VERSION=1.11.70
 
 .DEFAULT_GOAL := all
 
@@ -24,6 +24,7 @@ build:
 
 push:
 	@echo ">>>> Publish docker image: " ${BRANCH} ${BRANCHSHORT}
+	@docker buildx create --use --name buildkit	
 	@docker buildx build --sbom=true --provenance=true --platform linux/amd64 --build-arg BV_VEC=v${VERSION} --build-arg VERSION=${VERSION} --push -t ${IMAGEFULLNAME}:${BRANCH} .
 	@docker buildx build --sbom=true --provenance=true --platform linux/amd64 --build-arg BV_VEC=v${VERSION} --build-arg VERSION=${VERSION} --push -t ${IMAGEFULLNAME}:${BRANCHSHORT} .
 	@docker buildx build --sbom=true --provenance=true --platform linux/amd64 --build-arg BV_VEC=v${VERSION} --build-arg VERSION=${VERSION} --push -t ${IMAGEFULLNAME}:latest .
