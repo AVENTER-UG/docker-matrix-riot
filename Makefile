@@ -9,7 +9,7 @@ BUILDDATE=$(shell date -u +%Y%m%d)
 BRANCH=$(shell git symbolic-ref --short HEAD | xargs basename)
 BRANCHSHORT=$(shell echo ${BRANCH} | awk -F. '{ print $$1"."$$2 }')
 LASTCOMMIT=$(shell git log -1 --pretty=short | tail -n 1 | tr -d " " | tr -d "UPDATE:")
-VERSION=1.11.70
+VERSION=1.11.72
 
 .DEFAULT_GOAL := all
 
