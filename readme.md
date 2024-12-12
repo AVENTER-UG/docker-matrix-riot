@@ -5,6 +5,9 @@
 <a href="https://hub.docker.com/r/avhost/docker-matrix-riot" target="_new">![Docker Pulls](https://img.shields.io/docker/pulls/avhost/docker-matrix)</a>
 <a href="https://liberapay.com/docker-matrix" target="_new"><img src="https://img.shields.io/liberapay/receives/AVENTER.svg?logo=liberapay"></a>
 
+## Funding
+
+[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=H553XE4QJ9GJ8)
 
 ## Notice
 
